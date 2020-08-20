@@ -81,10 +81,8 @@ const app = new Vue({
       this.gameEnd = false;
 
       // reset title
-      document.querySelector("#xtitle").style =
-        "filter:grayscale(0%);scale:100%";
-      document.querySelector("#otitle").style =
-        "filter:grayscale(0%);scale:100%";
+      document.querySelector("#xtitle").style = "";
+      document.querySelector("#otitle").style = "";
     },
     animateTitle: function () {
       const X = document.querySelector("#xtitle");

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Helper</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-columns: 500px auto;
+        width: 800px;
+        margin: 20px auto;
+      }
+      .app {
+        width: 500px;
+        margin: 0 auto;
+      }
+      .result {
+        margin-top: 30px;
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+      .convertBtn {
+        border: 0;
+        width: 200px;
+        height: 50px;
+        margin: 0 auto;
+        background-color: #a7ff83;
+        border-radius: 10px;
+        font-size: 18px;
+      }
+      #originalText {
+        width: 80%;
+        height: 150px;
+      }
+      #resultText {
+        width: 100%;
+        height: 200px;
+      }
+      label {
+        display: block;
+        font-size: 14px;
+      }
+
+      .option div {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div>
+        Input text you want to convert
+      </div>
+
+      <textarea id="originalText"></textarea>
+    </div>
+    <div class="option">
+      <div style="text-align: center;">
+        <button onclick="convertText()" class="convertBtn">Convert</button>
+      </div>
+      <div>
+        <label for="beforeText">Before</label>
+        <input type="text" id="beforeText" />
+      </div>
+      <div>
+        <label for="afterText">After</label>
+        <input type="text" id="afterText" />
+      </div>
+    </div>
+    <div class="result">
+      <div>Result</div>
+      <textarea readonly id="resultText" onclick="highlightTextArea(this)">
+Result convert</textarea
+      >
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

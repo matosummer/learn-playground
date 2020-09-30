@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <title>Kelompok Generator</title>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <div>
+              <v-flex class="d-felx text-center ma-4 pa-6">
+                <h1>Kelompok Generator</h1>
+                <div class="text-h6 text--secondary">Generate groups from name list</div>
+              </v-flex>
+            </div>
+            <v-row align="center">
+              <v-col cols="10">
+                <v-text-field label="Name" @keyup.enter="insertNewName" v-model="inputName"></v-text-fiel>
+              </v-col>
+              <v-col align="center">
+                <v-btn fab dark color="indigo" @click="insertNewName">
+                  <v-icon dark>mdi-plus</v-icon>
+                </v-btn>
+              </v-col>
+                <v-col>
+                  <v-btn class="white--text" tile block color="red" x-large @click="generateRandomName">
+                    Random Name
+                  </v-btn>
+                </v-col>
+            </v-row>
+            <v-row  align="center" justify="center">
+              <v-col cols="2" v-show="false">
+                <header>Count By</header>
+                <v-radio-group v-model="setting.countBy">
+                  <v-radio label="Group" value="group"></v-radio>
+                  <v-radio label="Person" value="person"></v-radio>
+                </v-radio-group>
+              </v-col>
+              <v-col cols="2">
+                <header>Group count</header>
+                <v-text-field v-model="setting.count"
+                type="number" @keypress="filterOnlyNumber"></v-text-field>
+              </v-col>
+              <v-col>
+                <v-dialog v-model="confirmReset" persistent max-width="320">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="red"
+                      tile
+                      class="white--text"
+                      v-bind="attrs"
+                      v-on="on"
+                      block
+                      x-large
+                    >
+                    Reset
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title class="headline">Reset all names?</v-card-title>
+                    <v-card-text></v-card-text>
+                    <v-card-actions>
+                      <v-btn color="green darken-1" text @click="confirmReset = false">No</v-btn>
+                      <v-btn color="green darken-1" text @click="resetAllNames">Yes</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-col>
+              <v-col>
+                <v-btn class="white--text" tile block color="indigo" x-large @click="generateGroup">
+                  Generate
+                </v-btn>
+              </v-col>
+            </v-row>
+            
+            <template v-for="(namaGroup, n) in groups.data">
+              <v-data-table
+                :headers="groups.headers"
+                :items="namaGroup"
+                :items-per-page="-1"
+                class="elevation-1 mt-10"
+                hide-default-footer
+                dense
+                v-show="namaGroup.length>0"
+              >
+              <template v-slot:item="{item, index}">
+                  <tr height="60">
+                    <td>{{index + 1}}</td>
+                    <td>
+                      {{item.name}}
+                    </td>
+                    <td>
+                      <v-btn elevation="1" fab class="white--text" color="red" small @click="removeName(n, index)">
+                        <v-icon dark>mdi-delete</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
+              </template>
+
+              </v-data-table>
+            </template>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js" integrity="sha512-/seDHxVfh1NvFUscAj8GsHQVZJvr2jjAoYsNL7As2FCaFHUHYIarl3sRCvVlFgyouVNiRgHIebyLKjpgd1SLDw==" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

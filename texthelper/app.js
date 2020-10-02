@@ -9,6 +9,7 @@ function convertText() {
   let after = AFTERTEXT.value ? AFTERTEXT.value : "";
   RESULTTEXT.textContent = before + textLine[0] + after;
   for (let i = 1; i < textLine.length; i++) {
+    if (textLine[i].trim().length == 0) continue;
     RESULTTEXT.textContent += "\r\n" + before + textLine[i] + after;
   }
 }

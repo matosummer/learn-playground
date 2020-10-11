@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+      <link
+        href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+        rel="stylesheet"
+      />
+      <link
+        href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css"
+        rel="stylesheet"
+      />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+      />
+      <title>Hangman</title>
+      <style>
+        .pointer:hover {
+          cursor: pointer;
+        }
+      </style>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-main>
+          <v-container>
+            <v-row class="mx-auto">
+              <v-flex class="d-felx text-center ma-4 pa-6">
+                <h1>Hangman</h1>
+              </v-flex>
+            </v-row>
+            <v-flex class="d-flex flex-row flex-wrap justify-center">
+              <template v-for="j in word">
+                <v-sheet
+                  class="d-flex justify-center align-end ma-1"
+                  flat
+                  height="50"
+                  width="50"
+                  :outlined="j != ' '"
+                  :color="j != '_' && j != ' '?'lime':''"
+                  :class="j != '_' && j != ' '?'align-center white--text text-h5 font-weight-bold':''"
+                  >
+                  {{j}}
+                </v-sheet>
+              </template>
+            </v-flex>
+            <v-row justify="center" class="mt-8">
+              <v-col cols="5" align-self="center" class="text-center">
+                <h2>Chance</h2> 
+                <v-card flat height="50" class="d-flex align-center justify-center">
+                  <template v-for="(i, n) in chances + wrongLetter.length">
+                    <template v-if="wrongLetter.length >= i">
+                      <v-card 
+                      class="d-flex justify-center align-center ma-1"
+                      height="50"
+                      width="50"
+                      flat
+                      outlined
+                      color="red"
+                      >
+                      {{wrongLetter[n]}}
+                    </v-card>
+                    </template>
+                    <template v-else>
+                      <v-card 
+                        class="d-flex justify-center align-center ma-1"
+                        :key="`chance`+i" 
+                        height="50"
+                        width="50"
+                        flat
+                        outlined
+                        color="lime"
+                        >
+                      </v-card>
+                    </template>
+                  </template>
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-flex class="d-flex flex-row flex-wrap justify-center">
+              <template v-for="i in letters">
+                <v-hover v-slot:default="{ hover }">
+                  <v-sheet
+                    class="d-flex justify-center align-center ma-4 pointer"
+                    flat
+                    height="80"
+                    width="80"
+                    flat
+                    outlined
+                    :color="letterUsed.includes(i)?'grey':''"
+                    @mouseup="guessLetter(i)"
+                    >
+                    {{i}}
+                  </v-sheet>
+                </v-hover>
+              </template>
+            </v-flex>
+            <v-overlay
+              :value="gameEnd && !loading"
+              opacity=".8"
+            >
+              <v-flex class="d-flex flex-column text-center">
+                <template v-if="answer.length != word.length">
+                  <h1 class="text-h1"> Game Over </h1>
+                  <h3 class="red--text mt-5">Answer</h2>
+                  <h2 class="white--text">{{answer}}</h2>
+                </template>
+                <template v-else>
+                  <h1 class="text-h1"> CONGRATULATION </h1>
+                  <h3 class="mt-5">you guessed the correct answer</h2>
+                </template>
+                <v-btn 
+                  class="mt-5"
+                  color="indigo lighten-2"
+                  @click="startGame"
+                >
+                  Restart Game
+                </v-btn>
+              </v-flex>
+            </v-overlay>
+            <v-overlay
+              :value="loading"
+              opacity="1"
+            >
+              <v-flex class="d-flex flex-column align-center text-center">
+                <h1 class="text-h2 mb-5"> Loading </h1>
+                <v-progress-circular
+                  :size="50"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+                <span class="text-h8 mt-5" v-if="errorMessage.length <= 0"> Waiting wikimedia API </span>
+                <span class="text-h8 mt-5 red--text" v-else> {{errorMessage}}</span>
+              </v-flex>
+            </v-overlay>
+          </v-container>
+        </v-main>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

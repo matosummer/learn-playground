@@ -62,7 +62,7 @@ new Vue({
 
       this.letterUsed.push(letter);
     },
-    async fetchWikipedia() {
+    fetchWikipedia() {
       // CORS disabled in github pages :(
       this.wikipediaData = ["github", "why", "give me cors pls"];
       this.startGame();
@@ -73,22 +73,22 @@ new Vue({
       //https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&grnlimit=1
 
       // Fetch mostview wikipedia data limit 200
-      await fetch(
-        "https://en.wikipedia.org/w/api.php?format=json&action=query&grnnamespace=0&grnlimit=1&list=mostviewed&pvimlimit=200"
-      )
-        .then((response) => {
-          if (!response.ok) {
-            this.errorMessage = response.status;
-            throw new Error("HTTP status " + response.status);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          this.wikipediaData = data.query.mostviewed;
-          console.log(this.wikipediaData);
-          this.startGame();
-          this.loading = false;
-        });
+      // await fetch(
+      //   "https://en.wikipedia.org/w/api.php?format=json&action=query&grnnamespace=0&grnlimit=1&list=mostviewed&pvimlimit=200"
+      // )
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       this.errorMessage = response.status;
+      //       throw new Error("HTTP status " + response.status);
+      //     }
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     this.wikipediaData = data.query.mostviewed;
+      //     console.log(this.wikipediaData);
+      //     this.startGame();
+      //     this.loading = false;
+      // });
     },
     getRandomIntInclusive(min, max) {
       min = Math.ceil(min);

@@ -106,7 +106,7 @@
               opacity=".8"
             >
               <v-flex class="d-flex flex-column text-center">
-                <template v-if="answer.length != word.length">
+                <template v-if="word.includes('_')">
                   <h1 class="text-h1"> Game Over </h1>
                   <h3 class="red--text mt-5">Answer</h2>
                   <h2 class="white--text">{{answer}}</h2>

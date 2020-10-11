@@ -28,9 +28,8 @@ new Vue({
       // ].title.toUpperCase();
 
       // Normal array
-      this.answer = this.wikipediaData[
-        this.getRandomIntInclusive(0, this.wikipediaData.length)
-      ].toUpperCase();
+      let getRandomNumber = this.getRandomInt(0, this.wikipediaData.length);
+      this.answer = this.wikipediaData[getRandomNumber].toUpperCase();
       console.log(this.answer);
       this.chances = 5;
       this.letterUsed = [];
@@ -90,10 +89,17 @@ new Vue({
       //     this.loading = false;
       // });
     },
+
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
     getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+    },
+    getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
     },
   },
   computed: {

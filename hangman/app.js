@@ -22,10 +22,15 @@ new Vue({
   },
   methods: {
     startGame() {
-      // Generate random answer
+      // Generate random answer wikipedia
+      // this.answer = this.wikipediaData[
+      //   this.getRandomIntInclusive(0, this.wikipediaData.length)
+      // ].title.toUpperCase();
+
+      // Normal array
       this.answer = this.wikipediaData[
         this.getRandomIntInclusive(0, this.wikipediaData.length)
-      ].title.toUpperCase();
+      ].toUpperCase();
       console.log(this.answer);
       this.chances = 5;
       this.letterUsed = [];

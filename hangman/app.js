@@ -58,6 +58,12 @@ new Vue({
       this.letterUsed.push(letter);
     },
     async fetchWikipedia() {
+      // CORS disabled in github pages :(
+      this.wikipediaData = ["github", "why", "give me cors pls"];
+      this.startGame();
+      this.loading = false;
+      return;
+
       // if want to use random
       //https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&grnlimit=1
 
